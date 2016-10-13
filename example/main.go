@@ -1,21 +1,10 @@
-# echo-binder
-echo-binder 一个提供echo中数据binder和validator功能的middleware
-
-## Quick Start
-
-### Installation
-```
-$ go get -u github.com/cnjack/echo-binder
-```
-### Hello, World!
-```
 package main
 
 import (
-	"net/http"
-	"github.com/labstack/echo"
 	"github.com/cnjack/echo-binder"
+	"github.com/labstack/echo"
 	"github.com/labstack/echo/engine/standard"
+	"net/http"
 )
 
 type User struct {
@@ -32,8 +21,7 @@ func main() {
 		if err := c.Bind(&u); err != nil {
 			c.String(http.StatusBadRequest, err.Error())
 		}
-		return c.String(http.StatusOK, "Hello, " + u.Name)
+		return c.String(http.StatusOK, "Hello, "+u.Name)
 	})
 	e.Run(standard.New(":1314"))
 }
-```

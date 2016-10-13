@@ -10,17 +10,28 @@ type StructValidator interface {
 	ValidateStruct(interface{}) error
 }
 
+var Validator StructValidator = &defaultValidator{}
+
 var (
-	JSON          = jsonBinder{}
-	XML           = xmlBinder{}
-	Form          = formBinder{}
-	FormPost      = formPostBinder{}
-	FormMultipart = formMultipartBinder{}
-	ProtoBuf      = protobufBinder{}
+	JSON     = jsonBinder{}
+	XML      = xmlBinder{}
+	Form     = formBinder{}
+	FormPost = formPostBinder{}
+	ProtoBuf = protobufBinder{}
 )
 
+func BindBinder(e *echo.Echo) echo.MiddlewareFunc {
+	return func(next echo.HandlerFunc) echo.HandlerFunc {
+		return func(c echo.Context) (err error) {
+			b := NewBinder(c)
+			e.SetBinder(b)
+			return next(c)
+		}
+	}
+}
+
 func NewBinder(c echo.Context) Binder {
-	if c.Request().Method() == "GET" {
+	if c.Request().Method() == echo.GET {
 		return Form
 	} else {
 		switch c.Request().Header().Get("Content-Type") {
@@ -30,12 +41,18 @@ func NewBinder(c echo.Context) Binder {
 			return XML
 		case echo.MIMEApplicationProtobuf:
 			return ProtoBuf
-		case echo.MIMEApplicationForm:
+		case echo.MIMEApplicationForm, echo.MIMEMultipartForm:
 			return FormPost
-		case echo.MIMEMultipartForm:
-			return FormMultipart
 		default:
 			return Form
 		}
 	}
+}
+
+func validate(obj interface{}) error {
+	if Validator == nil {
+		return nil
+	}
+
+	return Validator.ValidateStruct(obj)
 }
