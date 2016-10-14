@@ -39,6 +39,6 @@ func main() {
 ```
 
 ## Thx
-[echo](https://github.com/labstack/echo)
-[assert](github.com/stretchr/testify/assert)
-[validator.v9](gopkg.in/go-playground/validator.v9)
+[echo](https://github.com/labstack/echo)  
+[assert](github.com/stretchr/testify/assert)  
+[validator.v9](gopkg.in/go-playground/validator.v9)  
