@@ -37,3 +37,8 @@ func main() {
 	e.Run(standard.New(":1314"))
 }
 ```
+
+## Thx
+[echo](https://github.com/labstack/echo)
+[assert](github.com/stretchr/testify/assert)
+[validator.v9](gopkg.in/go-playground/validator.v9)
