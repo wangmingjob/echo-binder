@@ -34,7 +34,7 @@ func NewBinder(c echo.Context) Binder {
 	if c.Request().Method() == echo.GET {
 		return Form
 	} else {
-		switch c.Request().Header().Get("Content-Type") {
+		switch c.Request().Header().Get(echo.HeaderContentType) {
 		case echo.MIMEApplicationJSON, echo.MIMEApplicationJSONCharsetUTF8:
 			return JSON
 		case echo.MIMEApplicationXML, echo.MIMEApplicationXMLCharsetUTF8:

@@ -23,5 +23,12 @@ func main() {
 		}
 		return c.String(http.StatusOK, "Hello, "+u.Name)
 	})
+	e.GET("/", func(c echo.Context) error {
+		var u User
+		if err := c.Bind(&u); err != nil {
+			c.String(http.StatusBadRequest, err.Error())
+		}
+		return c.String(http.StatusOK, "Hello, "+u.Name)
+	})
 	e.Run(standard.New(":1314"))
 }
