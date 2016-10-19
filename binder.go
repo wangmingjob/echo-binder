@@ -1,6 +1,8 @@
 package binder
 
-import "github.com/labstack/echo"
+import (
+	"github.com/labstack/echo"
+)
 
 type Binder interface {
 	Bind(interface{}, echo.Context) error
@@ -31,6 +33,7 @@ func BindBinder(e *echo.Echo) echo.MiddlewareFunc {
 }
 
 func NewBinder(c echo.Context) Binder {
+
 	if c.Request().Method() == echo.GET {
 		return Form
 	} else {
@@ -53,6 +56,5 @@ func validate(obj interface{}) error {
 	if Validator == nil {
 		return nil
 	}
-
 	return Validator.ValidateStruct(obj)
 }

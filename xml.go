@@ -12,6 +12,6 @@ func (xmlBinder) Bind(obj interface{}, c echo.Context) error {
 	if err := decoder.Decode(obj); err != nil {
 		return err
 	}
-
+	xssFilter(obj)
 	return validate(obj)
 }

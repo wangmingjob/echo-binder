@@ -14,7 +14,7 @@ func (formBinder) Bind(obj interface{}, c echo.Context) error {
 	if err := bindData(obj, c.QueryParams()); err != nil {
 		return err
 	}
-
+	xssFilter(obj)
 	return validate(obj)
 }
 
@@ -22,7 +22,7 @@ func (formPostBinder) Bind(obj interface{}, c echo.Context) error {
 	if err := bindData(obj, c.FormParams()); err != nil {
 		return err
 	}
-
+	xssFilter(obj)
 	return validate(obj)
 }
 

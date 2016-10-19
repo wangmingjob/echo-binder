@@ -15,10 +15,15 @@ type User struct {
 	Email string `json:"email" xml:"email" form:"email" binding:"required,email"`
 }
 
+type Xss struct {
+	Data string `json:"data" xss:"true"`
+}
+
 var (
 	json = `{"name": "jack","age": 25,"email": "h_7357@qq.com"}`
 	xml = `<xml><name>jack</name><age>25</age><email>h_7357@qq.com</email></xml>`
 	form = `name=jack&age=25&email=h_7357@qq.com`
+	xss = `{"data":"<a onblur='alert(secret)' href='http://www.google.com'>Google</a>"}`
 )
 
 func TestFormBinder_Bind(t *testing.T) {
@@ -81,5 +86,19 @@ func TestJsonBinder_Bind(t *testing.T) {
 		assert.Equal(t, "jack", user.Name)
 		assert.Equal(t, 25, user.Age)
 		assert.Equal(t, "h_7357@qq.com", user.Email)
+	}
+}
+
+func TestXssBinder_Bind(t *testing.T) {
+	e := echo.New()
+	rec := test.NewResponseRecorder()
+	req := test.NewRequest("POST", "/", strings.NewReader(xss))
+	c := e.NewContext(req, rec)
+	req.Header().Set(echo.HeaderContentType, "application/json")
+	b := binder.NewBinder(c)
+	var x Xss
+	err := b.Bind(&x, c)
+	if assert.NoError(t, err) {
+		assert.Equal(t, "<a href=\"http://www.google.com\" rel=\"nofollow\">Google</a>", x.Data)
 	}
 }

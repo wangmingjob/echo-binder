@@ -1,6 +1,11 @@
 # echo-binder
 echo-binder 一个提供echo中数据binder和validator功能的middleware
 
+## Update
+
+###20161018
+使用[bluemonday](github.com/microcosm-cc/bluemonday)添加xss过滤,使用方式详见test TestXssBinder_Bind
+
 ## Quick Start
 
 ### Installation
@@ -42,3 +47,4 @@ func main() {
 [echo](https://github.com/labstack/echo)  
 [assert](github.com/stretchr/testify/assert)  
 [validator.v9](gopkg.in/go-playground/validator.v9)  
+[bluemonday](github.com/microcosm-cc/bluemonday)  
