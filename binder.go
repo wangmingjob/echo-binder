@@ -2,6 +2,7 @@ package binder
 
 import (
 	"github.com/labstack/echo"
+	"strings"
 )
 
 type Binder interface {
@@ -37,10 +38,11 @@ func NewBinder(c echo.Context) Binder {
 	if c.Request().Method() == echo.GET {
 		return Form
 	} else {
-		switch c.Request().Header().Get(echo.HeaderContentType) {
-		case echo.MIMEApplicationJSON, echo.MIMEApplicationJSONCharsetUTF8:
+
+		switch ctype := c.Request().Header().Get(echo.HeaderContentType) {
+		case strings.HasPrefix(ctype, echo.MIMEApplicationJSON):
 			return JSON
-		case echo.MIMEApplicationXML, echo.MIMEApplicationXMLCharsetUTF8:
+		case strings.HasPrefix(ctype, echo.MIMEApplicationXML):
 			return XML
 		case echo.MIMEApplicationProtobuf:
 			return ProtoBuf
@@ -50,6 +52,7 @@ func NewBinder(c echo.Context) Binder {
 			return Form
 		}
 	}
+
 }
 
 func validate(obj interface{}) error {

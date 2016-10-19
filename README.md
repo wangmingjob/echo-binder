@@ -1,10 +1,13 @@
 # echo-binder
 echo-binder 一个提供echo中数据binder和validator功能的middleware
 
+##TODO
+ - 添加gin的标签  
+ - 完善注入方式
 ## Update
 
-###20161018
-使用[bluemonday](github.com/microcosm-cc/bluemonday)添加xss过滤,使用方式详见test TestXssBinder_Bind
+- 20161018 使用[bluemonday](github.com/microcosm-cc/bluemonday)添加xss过滤,使用方式详见test TestXssBinder_Bind
+
 
 ## Quick Start
 
@@ -43,8 +46,8 @@ func main() {
 }
 ```
 
-## Thx
-[echo](https://github.com/labstack/echo)  
-[assert](https://github.com/stretchr/testify)  
-[validator.v9](https://gopkg.in/go-playground/validator.v9)  
-[bluemonday](https://github.com/microcosm-cc/bluemonday)  
+## Thx.
+[echo](https://github.com/labstack/echo) Fast and unfancy HTTP server framework for Go (Golang)  
+[assert](https://github.com/stretchr/testify) A sacred extension to the standard go testing package  
+[validator.v9](https://gopkg.in/go-playground/validator.v9) Go Struct and Field validation, including Cross Field, Cross Struct, Map, Slice and Array diving  
+[bluemonday](https://github.com/microcosm-cc/bluemonday) a fast golang HTML sanitizer (inspired by the OWASP Java HTML Sanitizer) to scrub user generated content of XSS  
