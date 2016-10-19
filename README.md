@@ -45,6 +45,6 @@ func main() {
 
 ## Thx
 [echo](https://github.com/labstack/echo)  
-[assert](github.com/stretchr/testify/assert)  
-[validator.v9](gopkg.in/go-playground/validator.v9)  
-[bluemonday](github.com/microcosm-cc/bluemonday)  
+[assert](https://github.com/stretchr/testify)  
+[validator.v9](https://gopkg.in/go-playground/validator.v9)  
+[bluemonday](https://github.com/microcosm-cc/bluemonday)  
