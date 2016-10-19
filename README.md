@@ -4,6 +4,7 @@ echo-binder 一个提供echo中数据binder和validator功能的middleware
 ##TODO
  - 添加gin的标签  
  - 完善注入方式
+
 ## Update
 
 - 20161018 使用[bluemonday](github.com/microcosm-cc/bluemonday)添加xss过滤,使用方式详见test TestXssBinder_Bind
