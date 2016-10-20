@@ -7,6 +7,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"strings"
 	"testing"
+	"fmt"
 )
 
 type User struct {
@@ -17,13 +18,14 @@ type User struct {
 
 type Xss struct {
 	Data string `json:"data" xss:"true"`
+	Image string `json:"image" xss:"true"`
 }
 
 var (
 	json = `{"name": "jack","age": 25,"email": "h_7357@qq.com"}`
 	xml = `<xml><name>jack</name><age>25</age><email>h_7357@qq.com</email></xml>`
 	form = `name=jack&age=25&email=h_7357@qq.com`
-	xss = `{"data":"<a onblur='alert(secret)' href='http://www.google.com'>Google</a>"}`
+	xss = `{"data":"<a onblur='alert(secret)' href='http://www.google.com'>Google</a>", "image":"<img src='https://ssl.gstatic.com/accounts/ui/logo_2x.png'/>"}`
 )
 
 func TestFormBinder_Bind(t *testing.T) {
@@ -98,6 +100,7 @@ func TestXssBinder_Bind(t *testing.T) {
 	b := binder.NewBinder(c)
 	var x Xss
 	err := b.Bind(&x, c)
+	fmt.Println(x.Image)
 	if assert.NoError(t, err) {
 		assert.Equal(t, "<a href=\"http://www.google.com\" rel=\"nofollow\">Google</a>", x.Data)
 	}

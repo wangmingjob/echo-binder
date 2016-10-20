@@ -31,6 +31,7 @@ func xssFilter (ptr interface{}) {
 
 func init() {
 	p.AllowAttrs("href").OnElements("a")
+	p.AllowAttrs("src").OnElements("img")
 	p.AllowStandardURLs()
 	p.AllowElements("p")
 }

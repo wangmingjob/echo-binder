@@ -38,15 +38,15 @@ func NewBinder(c echo.Context) Binder {
 	if c.Request().Method() == echo.GET {
 		return Form
 	} else {
-
-		switch ctype := c.Request().Header().Get(echo.HeaderContentType) {
+		ctype := c.Request().Header().Get(echo.HeaderContentType)
+		switch {
 		case strings.HasPrefix(ctype, echo.MIMEApplicationJSON):
 			return JSON
 		case strings.HasPrefix(ctype, echo.MIMEApplicationXML):
 			return XML
-		case echo.MIMEApplicationProtobuf:
+		case strings.HasPrefix(ctype, echo.MIMEApplicationProtobuf):
 			return ProtoBuf
-		case echo.MIMEApplicationForm, echo.MIMEMultipartForm:
+		case strings.HasPrefix(ctype, echo.MIMEApplicationForm), strings.HasPrefix(ctype, echo.MIMEMultipartForm):
 			return FormPost
 		default:
 			return Form
