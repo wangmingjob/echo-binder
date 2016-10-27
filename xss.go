@@ -5,7 +5,7 @@ import (
 	"github.com/microcosm-cc/bluemonday"
 )
 
-var p = bluemonday.NewPolicy()
+var p = bluemonday.UGCPolicy().AllowElements("font").AllowAttrs("style", "align", "color", "size").Globally()
 
 func xssFilter (ptr interface{}) {
 	if kindOfData(ptr) == reflect.Struct {
@@ -27,11 +27,4 @@ func xssFilter (ptr interface{}) {
 			}
 		}
 	}
-}
-
-func init() {
-	p.AllowAttrs("href").OnElements("a")
-	p.AllowAttrs("src").OnElements("img")
-	p.AllowStandardURLs()
-	p.AllowElements("p")
 }
